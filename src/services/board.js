@@ -26,7 +26,6 @@ const postBoard = async (title, contents, lockpassword) => {
       }
     )
     .then(function (response) {
-      console.log(response);
       weather = response.data.current.condition.text;
     });
   http: return await boardModels.postBoard(
@@ -49,7 +48,6 @@ const updateBoard = async (id, title, contents, lockpassword) => {
     toString(lockpassword),
     board.lockpassword
   );
-  console.log(isPassword);
   if (!isPassword) {
     boardModels.updateBoard(id, title, contents, lockpassword);
   } else {
@@ -61,7 +59,6 @@ const updateBoard = async (id, title, contents, lockpassword) => {
 
 const deleteBoard = async (id, lockpassword) => {
   const board = await boardModels.readBoardById(id);
-  console.log(board);
   if (!board) {
     const error = new Error('NOT_FOUND');
     error.status = 404;
@@ -71,7 +68,6 @@ const deleteBoard = async (id, lockpassword) => {
     toString(lockpassword),
     board.lockpassword
   );
-  console.log(isPassword);
   if (!isPassword) {
     boardModels.deleteBoard(id, lockpassword);
   } else {
