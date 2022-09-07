@@ -92,7 +92,7 @@ npm start
 - /updateboard/id 로 title/contents/ 값을 body값으로 받아 등록하며 수정하고자하는 게시판의 id값을 params로 받도록 설계하여 수정하도록 구현했습니다.
 
   - 아래는 등록된 모습과 날씨정보 등록을 확인을 위한 postman테스트 모습입니다.
-    ![게시판수정](https://user-images.githubusercontent.com/68211978/188854517-09c854e6-31bd-4831-aba4-e434201699ae.png)
+  ![스크린샷 2022-09-07 오후 10 03 53](https://user-images.githubusercontent.com/68211978/188885441-d59ab0de-dcca-4b6a-91b0-ba2bdd9687af.png)
 
 - /getboard 로 확인 할 수 있습니다. 조회가 되면서 최신글 순으로 볼 수 있도록 구현했습니다.
 
@@ -102,4 +102,5 @@ npm start
 
 - /deleteboard 로 확인 할 수 있습니다. 삭제하고자 하는 게시판의 id값을 params로 받아 삭제가 가능하도록 구현했습니다.
   - 아래는 postman테스트 모습입니다.
-    ![게시판 삭제](https://user-images.githubusercontent.com/68211978/188854628-34ce421d-e297-4ca8-b0dc-04d17fb15eb1.png)
+    ![스크린샷 2022-09-07 오후 10 04 07](https://user-images.githubusercontent.com/68211978/188885389-2bafe169-7a85-4c14-bcc3-1f4c16d0a5b6.png)
+
