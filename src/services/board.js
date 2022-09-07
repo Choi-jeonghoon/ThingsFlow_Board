@@ -5,6 +5,10 @@ const boardModels = require('../models/board');
 
 const salt = bcrypt.genSaltSync();
 
+const getBoard = async (req, res) => {
+  return await boardModels.getBoard();
+};
+
 const postBoard = async (title, contents, lockpassword) => {
   const hash = await bcrypt.hash(lockpassword, salt);
   const url_for_weather = 'http://api.weatherapi.com/v1/current.json';
@@ -34,4 +38,4 @@ const updateBoard = async (id, title, contents) => {
 const deleteBoard = async (id, title, contents) => {
   return await boardModels.deleteBoard(id, title, contents);
 };
-module.exports = { postBoard, updateBoard, deleteBoard };
+module.exports = { getBoard, postBoard, updateBoard, deleteBoard };

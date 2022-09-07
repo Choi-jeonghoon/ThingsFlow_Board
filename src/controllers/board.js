@@ -1,5 +1,14 @@
 const boardServices = require('../services/board');
 
+const getBoard = async (req, res) => {
+  try {
+    const getBoard = await boardServices.getBoard();
+
+    return res.status(200).json({ data: getBoard });
+  } catch (error) {
+    return res.status(error.statusCode || 500).json({ message: error.message });
+  }
+};
 const postBoard = async (req, res) => {
   try {
     const title = req.body.title;
@@ -41,4 +50,4 @@ const deleteBoard = async (req, res) => {
     return res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
-module.exports = { postBoard, updateBoard, deleteBoard };
+module.exports = { getBoard, postBoard, updateBoard, deleteBoard };

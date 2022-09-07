@@ -1,6 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const getBoard = async () => {
+  return await prisma.board.findMany({
+    orderBy: {
+      creatredat: 'asc',
+    },
+  });
+};
+
 const postBoard = async (title, contents, lockpassword, weather) => {
   return await prisma.board.create({
     data: {
@@ -29,4 +37,4 @@ const deleteBoard = async id => {
     where: { id: Number(id) },
   });
 };
-module.exports = { postBoard, updateBoard, deleteBoard };
+module.exports = { getBoard, postBoard, updateBoard, deleteBoard };
