@@ -1,6 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const readBoardById = async id => {
+  return await prisma.board.findUnique({
+    where: { id: Number(id) },
+  });
+};
+
 const getBoard = async () => {
   return await prisma.board.findMany({
     orderBy: {
@@ -35,4 +41,10 @@ const deleteBoard = async id => {
     where: { id: Number(id) },
   });
 };
-module.exports = { getBoard, postBoard, updateBoard, deleteBoard };
+module.exports = {
+  readBoardById,
+  getBoard,
+  postBoard,
+  updateBoard,
+  deleteBoard,
+};

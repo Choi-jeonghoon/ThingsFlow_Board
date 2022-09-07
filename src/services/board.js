@@ -10,7 +10,7 @@ const getBoard = async (req, res) => {
 };
 
 const postBoard = async (title, contents, lockpassword) => {
-  const hash = await bcrypt.hash(lockpassword, salt);
+  const hashPassword = await bcrypt.hash(lockpassword, salt);
   const url_for_weather = 'http://api.weatherapi.com/v1/current.json';
   let weather;
   weatherInfo = await axios
@@ -29,14 +29,55 @@ const postBoard = async (title, contents, lockpassword) => {
       console.log(response);
       weather = response.data.current.condition.text;
     });
-  http: return await boardModels.postBoard(title, contents, hash, weather);
+  http: return await boardModels.postBoard(
+    title,
+    contents,
+    hashPassword,
+    weather
+  );
 };
 
-const updateBoard = async (id, title, contents) => {
-  return await boardModels.updateBoard(id, title, contents);
+const updateBoard = async (id, title, contents, lockpassword) => {
+  const board = await boardModels.readBoardById(id);
+
+  if (!board) {
+    const error = new Error('NOT_FOUND');
+    error.status = 404;
+    throw error;
+  }
+  const isPassword = await bcrypt.compare(
+    toString(lockpassword),
+    board.lockpassword
+  );
+  console.log(isPassword);
+  if (!isPassword) {
+    boardModels.updateBoard(id, title, contents, lockpassword);
+  } else {
+    const error = new Error('INVALID_PASSWORD');
+    error.statusCode = 401;
+    throw error;
+  }
 };
 
-const deleteBoard = async (id, title, contents) => {
-  return await boardModels.deleteBoard(id, title, contents);
+const deleteBoard = async (id, lockpassword) => {
+  const board = await boardModels.readBoardById(id);
+  console.log(board);
+  if (!board) {
+    const error = new Error('NOT_FOUND');
+    error.status = 404;
+    throw error;
+  }
+  const isPassword = await bcrypt.compare(
+    toString(lockpassword),
+    board.lockpassword
+  );
+  console.log(isPassword);
+  if (!isPassword) {
+    boardModels.deleteBoard(id, lockpassword);
+  } else {
+    const error = new Error('INVALID_PASSWORD');
+    error.statusCode = 401;
+    throw error;
+  }
 };
 module.exports = { getBoard, postBoard, updateBoard, deleteBoard };
