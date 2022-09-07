@@ -21,6 +21,7 @@ const postBoard = async (title, contents, lockpassword) => {
         params: {
           key: process.env.WEATHER_API_KEY,
           q: 'Seoul',
+          lang: 'ko',
         },
       }
     )
